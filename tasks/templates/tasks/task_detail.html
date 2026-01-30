@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ task.title }}</h2>
+<hr>
+
+<div class="mb-3">
+    <p><strong>Project:</strong> {{ task.project.name }}</p>
+    <p><strong>Assigned To:</strong> {{ task.assigned_to.username }}</p>
+    <p><strong>Priority:</strong> {{ task.priority }}</p>
+
+    <p><strong>Status:</strong>
+        {% if task.status == "COMPLETED" %}
+            <span class="badge bg-success">Completed</span>
+        {% elif task.status == "ONGOING" %}
+            <span class="badge bg-primary">Ongoing</span>
+        {% elif task.status == "PENDING" %}
+            <span class="badge bg-warning">Pending</span>
+        {% elif task.status == "APPROVED" %}
+            <span class="badge bg-success">Approved</span>
+        {% else %}
+            {{ task.status }}
+        {% endif %}
+    </p>
+
+    <p><strong>Progress:</strong> {{ task.progress }}%</p>
+    <p><strong>Due Date:</strong> {{ task.due_date|date:"M. d, Y" }}</p>
+
+    {% if task.manager_comment %}
+        <p><strong>Manager Notes:</strong> {{ task.manager_comment }}</p>
+    {% endif %}
+</div>
+
+<hr>
+
+<h4>Comments & Files</h4>
+
+{% if comments %}
+<div class="mb-3">
+    <ul class="list-group">
+        {% for c in comments %}
+        <li class="list-group-item">
+            <strong>{{ c.user.username }}</strong>
+            <span class="text-muted" style="font-size:12px;">({{ c.created_at|date:"d M H:i" }})</span>
+            <br>
+            {{ c.comment }}
+
+            {% if c.file %}
+            <br><a href="{{ c.file.url }}" download class="btn btn-sm btn-outline-secondary mt-1">📎 Download File</a>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% else %}
+<p>No comments yet.</p>
+{% endif %}
+
+<hr>
+
+<h4>Add Comment / Upload File</h4>
+<form method="POST" enctype="multipart/form-data" class="mb-4">
+    {% csrf_token %}
+    <textarea name="comment" class="form-control" rows="3" placeholder="Write a comment..."></textarea>
+    <input type="file" name="file" class="form-control mt-2">
+    <button class="btn btn-primary mt-2">Submit</button>
+</form>
+
+<a href="/tasks/" class="btn btn-secondary">Back</a>
+
+{% endblock %}

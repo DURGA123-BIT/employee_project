@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Review Task: {{ task.title }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Status</label>
+    <select name="status" class="form-select">
+        <option value="PENDING" {% if task.status == "PENDING" %}selected{% endif %}>Pending</option>
+        <option value="ONGOING" {% if task.status == "ONGOING" %}selected{% endif %}>Ongoing</option>
+        <option value="COMPLETED" {% if task.status == "COMPLETED" %}selected{% endif %}>Completed</option>
+        <option value="APPROVED" {% if task.status == "APPROVED" %}selected{% endif %}>Approved</option>
+    </select>
+
+    <br>
+
+    <label>Progress (%)</label>
+    <input type="number" name="progress" class="form-control" value="{{ task.progress }}" min="0" max="100">
+
+    <br>
+
+    <label>Manager Notes</label>
+    <textarea name="manager_comment" class="form-control" rows="3"></textarea>
+
+    <br>
+    <button class="btn btn-primary">Update</button>
+</form>
+
+{% endblock %}
