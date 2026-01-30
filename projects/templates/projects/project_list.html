@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Project List</h2>
+
+<div class="d-flex justify-content-end mb-3">
+    <a href="{% url 'project-create' %}" class="btn btn-primary">+ Create Project</a>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Manager</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for project in projects %}
+        <tr>
+            <td>
+                <a href="{% url 'project-detail' project.id %}">
+                    {{ project.name }}
+                </a>
+            </td>
+            <td>{{ project.manager.username }}</td>
+            <td>{{ project.start_date|date:"M. d, Y" }}</td>
+            <td>{{ project.end_date|date:"M. d, Y" }}</td>
+            <td>
+                <span class="badge bg-success">Active</span>
+            </td>
+            <td>
+                <a href="{% url 'project-detail' project.id %}" class="btn btn-info btn-sm">View</a>
+                <a href="{% url 'project-update' project.id %}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{% url 'project-delete' project.id %}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" class="text-center text-muted">No projects found</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
