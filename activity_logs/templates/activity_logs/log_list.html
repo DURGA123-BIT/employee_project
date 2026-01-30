@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Activity Logs</h2>
+<hr>
+
+{% if logs %}
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>User</th>
+            <th>Action</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in logs %}
+        <tr>
+            <td>{{ log.user.username }}</td>
+            <td>{{ log.action }}</td>
+            <td>{{ log.created_at|date:"d M Y H:i" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No logs available.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Users</h2>
+<hr>
+
+{% if users %}
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+    <tr>
+        <th>Username</th>
+        <th>Role</th>
+    </tr>
+     </thead>
+    {% for u in users %}
+    <tr>
+        <td>{{ u.username }}</td>
+        <td>{{ u.role }}</td>
+    </tr>
+   
+    {% endfor %}
+    
+</table>
+{% else %}
+<p>No users</p>
+{% endif %}
+
+{% endblock %}

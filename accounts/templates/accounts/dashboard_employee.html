@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Employee Dashboard</h2>
+
+<h4>Notifications</h4>
+
+{% if notifications %}
+<ul>
+    {% for n in notifications %}
+        <li>{{ n.message }} <small>{{ n.created_at|date:"d M H:i" }}</small></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No notifications</p>
+{% endif %}
+{% endblock %}

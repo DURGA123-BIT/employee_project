@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Admin Dashboard</h2>
+<hr>
+
+<div class="row mt-4">
+    <div class="col-md-3">
+        <div class="card text-center p-3">
+            <h5>Total Users</h5>
+            <h3>{{ total_users }}</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-center p-3">
+            <h5>Total Projects</h5>
+            <h3>{{ total_projects }}</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-center p-3">
+            <h5>Total Tasks</h5>
+            <h3>{{ total_tasks }}</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-center p-3">
+            <h5>Employees</h5>
+            <h3>{{ total_employees }}</h3>
+        </div>
+    </div>
+</div>
+{% endblock %}
